@@ -4,11 +4,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
         with: { distribution: temurin, java-version: 17 }
-      - run: |
-          unzip -q saddle-recipe-src.zip
+      - name: Unpack and build
+        run: |
+          ls -la
+          Z="$(ls *.zip | head -1)"
+          echo "Using: $Z"
+          unzip -q "$Z"
           cd saddle-recipe
           chmod +x gradlew
           ./gradlew build
